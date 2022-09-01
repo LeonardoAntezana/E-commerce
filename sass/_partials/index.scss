@@ -1,10 +1,13 @@
 header{
+    background-color: #95b8f6;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     .nav{
         max-width: 1100px;
         margin: auto;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        padding: 1rem 0;
         .logo{
             width: 4rem;
         }
@@ -13,13 +16,17 @@ header{
                 width: 20rem;
                 height: 2rem;
                 border-radius: 0.5rem;
+                border: 0;
+                outline: none;
                 padding: 0 0.5rem;
             }
         }
         .nav__list{
             display: flex;
             .nav__list__item{
-                padding: 24px 12px;
+                padding: 1rem;
+                color: white;
+                font-weight: 900;
             }
         }
     }
