@@ -1,5 +1,21 @@
-function sumarIva(precio){
-    return precio + (precio * 0.21)
+// CLASE USUARIO
+class Usuario{
+    constructor(name,password){
+        this.name= name
+        this.password= password
+    }
+}
+// CLASE PRODUCTO
+class Producto{
+    constructor(nombre, precio){
+        this.nombre= nombre
+        this.precio= parseFloat(precio)
+    }
+
+    sumaIva() {
+        this.precio= this.precio + (this.precio * 0.21)
+        return this.precio
+    }
 }
 
 
@@ -20,10 +36,10 @@ function calcularCarrito(){
 
 
 function consultarIva(){
-    let producto= prompt("Ingrese nombre de producto")
-    let entrada= parseFloat(prompt("Ingrese precio producto:"))
-    let mensaje= `El precio del ${producto} por unidad mas iva es: `
-    return (mensaje + sumarIva(entrada))
+    let nombre= prompt("Ingrese nombre de producto")
+    let precio= prompt("Ingrese precio producto:")
+    let producto= new Producto(nombre, precio)
+    return (`El precio del ${producto.nombre} por unidad mas iva es: ` + producto.sumaIva() )
 }
 
 
@@ -40,8 +56,18 @@ function menu(){
             break
         case 3:
             alert("Gracias por su consulta")
+            break
+        default:
+            alert("Opcion incorrecta")
+            menu()
     }
 }
 
 
-menu()
+// menu()
+// const carrito = []
+// let nombre = prompt("Nombre del producto:")
+// let precio = prompt("Precio:")
+// const producto = new Producto(nombre,precio)
+// carrito.push([producto])
+// console.log(carrito) 
