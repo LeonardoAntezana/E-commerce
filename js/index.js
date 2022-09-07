@@ -12,25 +12,9 @@ class Producto{
         this.precio= parseFloat(precio)
     }
 
-    sumaIva() {
-        this.precio= this.precio + (this.precio * 0.21)
+    sumaIva(){
+        this.precio= this.precio * 1.21
         return this.precio
-    }
-}
-
-
-function calcularCarrito(){
-    let sumador = 0 
-    let ingDatos=prompt("Ingrese precio del pruducto a sumar o fin para terminar:")
-    while(ingDatos != "fin" && ingDatos != "Fin"){
-        sumador += parseFloat(ingDatos)
-        ingDatos=prompt("Ingrese precio del pruducto a sumar o fin para terminar:")
-    }
-    if(sumador >= 10000){
-        return `El precio total es de ${sumador} e incluye envio gratis!`
-    }
-    else{
-        return `El precio total del carrito es ${sumador}`
     }
 }
 
@@ -43,17 +27,38 @@ function consultarIva(){
 }
 
 
+function buy(){
+    let nombre, precio
+    const carrito = []
+    let sumador = 0
+    nombre= prompt("Ingresar nombre de producto o fin para terminar")
+    while(nombre != "fin"){
+        precio= prompt("Ingresar precio:")
+        carrito.push(new Producto(nombre,precio))
+        nombre= prompt("Ingresar nombre de producto o fin para terminar")
+    }
+    alert("Mostrando carrito:")
+    for( let product of carrito){
+        sumador += product.precio 
+    }
+    for( let product of carrito){
+        console.log(product.nombre + "\n" + product.precio)
+    }
+    envioGratis(sumador)
+}
+
+
+
 function menu(){
-    let opcion= parseInt(prompt("1. Para consultar precio del producto mas IVA \n2. Para calcular el precio total del carrito \n3. Salir"))
+    let opcion= parseInt(prompt("1. Para consultar precio del producto mas IVA \n2. Para agregar productos a su carrito \n3.Salir"))
     switch(opcion){
         case 1:
             alert(consultarIva())
             menu()
             break
         case 2:
-            alert(calcularCarrito())
-            menu()
-            break
+            buy()
+            menu()        
         case 3:
             alert("Gracias por su consulta")
             break
@@ -64,10 +69,25 @@ function menu(){
 }
 
 
-// menu()
-// const carrito = []
-// let nombre = prompt("Nombre del producto:")
-// let precio = prompt("Precio:")
-// const producto = new Producto(nombre,precio)
-// carrito.push([producto])
-// console.log(carrito) 
+
+function envioGratis(total){
+    if(total >= 11000){
+        alert(`El total del carrito es ${total} e incluye envio gratis`)
+    }
+    else{
+        alert(`El total del carrito es ${total}`)
+    }
+}
+
+// MAIN
+menu()
+
+
+
+
+
+
+
+
+
+
