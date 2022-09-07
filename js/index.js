@@ -38,12 +38,17 @@ function buy(){
         nombre= prompt("Ingresar nombre de producto o fin para terminar")
     }
     alert("Mostrando carrito:")
+    for(const product of carrito){
+       product.sumaIva() 
+    }
+
+    for( let product of carrito){
+        alert(`${product.nombre}    $ ${product.precio}` )
+    }
     for( let product of carrito){
         sumador += product.precio 
     }
-    for( let product of carrito){
-        console.log(product.nombre + "\n" + product.precio)
-    }
+
     envioGratis(sumador)
 }
 
