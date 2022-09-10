@@ -16,76 +16,46 @@ class Producto{
         this.precio= this.precio * 1.21
         return this.precio
     }
-}
 
-
-function consultarIva(){
-    let nombre= prompt("Ingrese nombre de producto")
-    let precio= prompt("Ingrese precio producto:")
-    let producto= new Producto(nombre, precio)
-    return (`El precio del ${producto.nombre} por unidad mas iva es: ` + producto.sumaIva() )
-}
-
-
-function buy(){
-    let nombre, precio
-    const carrito = []
-    let sumador = 0
-    nombre= prompt("Ingresar nombre de producto o fin para terminar")
-    while(nombre != "fin"){
-        precio= prompt("Ingresar precio:")
-        carrito.push(new Producto(nombre,precio))
-        nombre= prompt("Ingresar nombre de producto o fin para terminar")
-    }
-    alert("Mostrando carrito:")
-    for(const product of carrito){
-       product.sumaIva() 
-    }
-
-    for( let product of carrito){
-        alert(`${product.nombre}    $ ${product.precio}` )
-    }
-    for( let product of carrito){
-        sumador += product.precio 
-    }
-
-    envioGratis(sumador)
-}
-
-
-
-function menu(){
-    let opcion= parseInt(prompt("1. Para consultar precio del producto mas IVA \n2. Para agregar productos a su carrito \n3.Salir"))
-    switch(opcion){
-        case 1:
-            alert(consultarIva())
-            menu()
-            break
-        case 2:
-            buy()
-            menu()        
-        case 3:
-            alert("Gracias por su consulta")
-            break
-        default:
-            alert("Opcion incorrecta")
-            menu()
+    Descuento(){
+        this.precio= this.precio - (this.precio * 0.10)
+        return this.precio
     }
 }
 
+// STOCK DE PRODUCTOS
+const productos=[{id:1, nombre:"Heladera", desc:"electrodomestico", precio:100000}, {id:2, nombre:"Televisor", desc:"tecnologia", precio:70000}, 
+{id:3, nombre:"Celular", desc:"tecnologia", precio:50000}, {id:4, nombre:"Cama", desc:"descanso", precio:120000},
+{id:5, nombre:"Sillon", desc:"decoracion", precio:40000}, {id:6, nombre:"Cafetera", desc:"electrodomestico", precio:100000}]
 
+const catalogo= []
+const carrito=[]
+productos.forEach((elem) => {catalogo.push(`${elem.id}. ${elem.nombre}  $${elem.precio}`)})
 
-function envioGratis(total){
-    if(total >= 11000){
-        alert(`El total del carrito es ${total} e incluye envio gratis`)
-    }
-    else{
-        alert(`El total del carrito es ${total}`)
-    }
+function MostrarCatalogo(){
+    alert(catalogo.join("\n"))
 }
 
-// MAIN
-menu()
+function Ingreso(){
+    let entrada= prompt("Ingrese numero del producto a agregar al carrito o Fin para terminar")
+    while(entrada != "Fin"){
+        let productId= productos.find(product => product.id === parseInt(entrada))
+        carrito.push(productId)
+        MostrarCatalogo()
+        entrada= prompt("Ingrese numero del producto a agregar al carrito o Fin para terminar")
+    }
+    let carritoMsj= carrito.map(elem => `${elem.nombre}     $${elem.precio}`)
+    alert(carritoMsj.join("\n"))
+}
+
+MostrarCatalogo()
+Ingreso()
+let total=carrito.reduce((acc, elem)=> acc+elem.precio, 0)
+alert(`El total de la compra es: ${total}`)
+let pago= prompt("El metodo de pago sera en efectivo o tarjeta?")
+if(pago == "efectivo"){
+    alert(`El total de la compra mas descuento es: ` + (total-(total* 0.10)))
+}
 
 
 
