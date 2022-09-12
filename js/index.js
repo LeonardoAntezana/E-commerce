@@ -29,17 +29,13 @@ class Producto{
     }
 }
 
+// VARIABLES GLOBALES
+const carrito=[]
+const usuarios=[new Usuario("Furixxx","1234"), new Usuario("Blade","4567"), new Usuario("Leoni","8901")]
 // STOCK DE PRODUCTOS
 const productos=[new Producto(1,"Excellent","Gato", 7000),new Producto(2,"Pedigree","Perro",10000), 
 new Producto(3,"Dog Chow","Perro",5000), new Producto(4,"Whiskas","Gato", 8000),new Producto(5,"Heno","Otro",3000),
 new Producto(6,"Shulet","Otro",500),]
-
-
-
-// VARIABLES GLOBALES
-const carrito=[]
-const catalogo= []
-const usuarios=[new Usuario("Furixxx","1234"), new Usuario("Blade","4567"), new Usuario("Leoni","8901")]
 
 
 // FUNCION LOGIN
@@ -56,88 +52,78 @@ const login = () =>{
 }
 
 
-// FUNCION CATALOGO
-function Catalogo(){
-    productos.forEach((elem) => {catalogo.push(`${elem.id}. ${elem.nombre}  $${elem.precio}`)})
+// FUNCION FILTRADO
+const filtrado = (array, tipo) => {
+    let filtro = array.filter(elem => elem.tipo === tipo)
+    let mostrar = filtro.map(elem => elem.mostrarP())
+    let mostrarProductos= mostrar.join("\n")
+    alert(mostrarProductos)  
 }
 
-// FUNCION INGRESO DE PRODUCTOS AL CARRITO
-function Ingreso(){
-    let entrada= prompt("Ingrese numero del producto a agregar al carrito o Fin para terminar")
-    while(entrada != "Fin" && entrada != "fin" && entrada != ""){
-        let productId= productos.find(product => product.id === parseInt(entrada))
-        carrito.push(productId)
-        alert(catalogo.join("\n"))
-        entrada= prompt("Ingrese numero del producto a agregar al carrito o Fin para terminar")
-    }
-    if(carrito.length === 0){
-        alert("El carrito esta vacio")
-        menu()
-    }
-    let carritoMsj= carrito.map(elem => `${elem.nombre}     $${elem.precio}`)
-    alert(carritoMsj.join("\n"))
-}
 
-// FUNCION PRECIO FINAL DEL CARRITO
-function TotalCarrito(){
-    let total=carrito.reduce((acc, elem)=> acc+elem.precio, 0)
-    let pago= prompt("El metodo de pago sera en efectivo o tarjeta?")
-    if(pago.toLowerCase() == "efectivo"){
-        alert(`El total de la compra mas descuento es: ` + (total-(total* 0.10)))
+// AGREGAR AL CARRITO
+const addProduct = (array, tipo) => {
+    filtrado(array,tipo)
+    let entrada = prompt("Ingrese nombre del producto a agregar al carrito o fin para terminar")
+    while(entrada.toLowerCase() != "fin"){
+        let prodId = productos.find(elem => elem.nombre === entrada)
+        if(prodId === undefined){
+            alert("Opcion incorrecta")
+            filtrado(array,tipo)
+            entrada = prompt("Ingrese nombre del producto a agregar al carrito o fin para terminar")   
+        }
+        carrito.push(prodId)
+        entrada = prompt("Ingrese nombre del producto a agregar al carrito o fin para terminar")
     }
-    else if(pago.toLowerCase() == "tarjeta"){
-        alert(`El total de la compra es: ${total}`)
-    }
-    else{
-        alert("Opcion incorrecta")
-        pago= prompt("El metodo de pago sera en efectivo o tarjeta?")
-    }
+    menu()
 }
 
 
 // FUNCION MENU
 const menu = () =>{
-    let entrada=parseInt(prompt("1. Para ver el catalogo completo\n2.Para productos de gatos\n3.Para ver productos de perros\n4. Para ver productos para otras mascotas\n5. Para salir")
-    )
+    let entrada=parseInt(prompt("1. Para ver el catalogo completo\n2.Para productos de gatos\n3.Para ver productos de perros\n4. Para ver productos para otras mascotas\n5. Para salir\n6. Para ver el carrito"))
     if(typeof(entrada) === NaN){
         alert("Opcion incorrecta")
-        entrada=parseInt(prompt("1. Para ver el catalogo completo\n2.Para productos de gatos\n3.Para ver productos de perros\n4. Para ver productos para otras mascotas\n5. Para salir")
-    )
+        entrada=parseInt(prompt("1. Para ver el catalogo completo\n2.Para productos de gatos\n3.Para ver productos de perros\n4. Para ver productos para otras mascotas\n5. Para salir\n6. Para ver el carrito"))
     }    
     switch(entrada){
         case 1:
-            alert(catalogo.join("\n"))
-            Ingreso()
-            login()
+            let catalogo = productos.map(elem => elem.mostrarP())
+            let mostrarCatalogo= catalogo.join("\n")
+            alert(mostrarCatalogo)
+            menu()
             break
         case 2:
-            let filtroGato= productos.filter(elem => elem.tipo === "Gato")
-            let mostrar= filtroGato.map(elem => `${elem.nombre}      $${elem.precio}`)
-            alert(mostrar.join("\n"))
+            addProduct(productos,"Gato")
             break
         case 3:
-            let filtroPerro= productos.filter(elem => elem.tipo === "Perro")
-            let mostrarPerros= filtroPerro.map(elem => `${elem.nombre}      $${elem.precio}`)
-            alert(mostrarPerros.join("\n"))
+           addProduct(productos, "Perro")
             break
         case 4:
-            let filtroOtro= productos.filter(elem => elem.tipo === "Otro")
-            let mostrarOtros= filtroOtro.map(elem => `${elem.nombre}      $${elem.precio}`)
-            alert(mostrarOtros.join("\n"))
+            addProduct(productos, "Otro")
             break
         case 5:
             alert("Hasta luego...")
             break
+        case 6:
+            if(carrito.length === 0){
+                alert("El carrito se encuentra vacio")
+                menu()
+            }
+            let total = carrito.reduce((acc, elem) => acc + elem.precio, 0)
+            let mostrar= carrito.map(elem => elem.mostrarP())
+            alert(`${mostrar.join("\n")}\nTotal : $${total}`)
+            menu()
+            break 
         default:
             alert("Opcion incorrecta")
-            entrada=parseInt(prompt("1. Para ver el catalogo completo\n2.Para productos de gatos\n3.Para ver productos de perros\n4. Para ver productos para otras mascotas\n5. Para salir")
-            )
+            entrada=parseInt(prompt("1. Para ver el catalogo completo\n2.Para productos de gatos\n3.Para ver productos de perros\n4. Para ver productos para otras mascotas\n5. Para salir\n6. Para ver el carrito")
+            )     
             break
         }
     }
 
 // MAIN
-Catalogo()
 menu()
 
 
