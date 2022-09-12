@@ -1,4 +1,4 @@
-// CLASE USUARIO
+// CLASE USUARIO    |  ESTA CLASE LA VOY A UTILIZAR SOLO QUE POR TIEMPOS DECIDI DARLE MAS IMPORTANCIA A LOS PRODUCTOS   |
 class Usuario{
     constructor(name,password){
         this.name= name
@@ -38,7 +38,7 @@ new Producto(3,"Dog Chow","Perro",5000), new Producto(4,"Whiskas","Gato", 8000),
 new Producto(6,"Shulet","Otro",500),]
 
 
-// FUNCION LOGIN
+// FUNCION LOGIN  |  ESTA FUNCION LA VOY A UTILIZAR SOLO QUE POR TIEMPOS DECIDI DARLE MAS IMPORTANCIA A LOS PRODUCTOS   |
 const login = () =>{
     let user= new Usuario(prompt("Ingrese nombre de usuario"),prompt("Ingrese clave"))
     let validacion= usuarios.some(elem => elem.name === user.name && elem.password === user.password)
