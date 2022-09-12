@@ -72,7 +72,9 @@ const addProduct = (array, tipo) => {
             filtrado(array,tipo)
             entrada = prompt("Ingrese nombre del producto a agregar al carrito o fin para terminar")   
         }
-        carrito.push(prodId)
+        else if(prodId != undefined){
+            carrito.push(prodId)
+        }
         entrada = prompt("Ingrese nombre del producto a agregar al carrito o fin para terminar")
     }
     menu()
@@ -81,10 +83,10 @@ const addProduct = (array, tipo) => {
 
 // FUNCION MENU
 const menu = () =>{
-    let entrada=parseInt(prompt("1. Para ver el catalogo completo\n2.Para productos de gatos\n3.Para ver productos de perros\n4. Para ver productos para otras mascotas\n5. Para salir\n6. Para ver el carrito"))
+    let entrada=parseInt(prompt("1. Para ver el catalogo completo\n2.Para productos de gatos\n3.Para ver productos de perros\n4. Para ver productos para otras mascotas\n5. Para ver el carrito\n6. Para salir"))
     if(typeof(entrada) === NaN){
         alert("Opcion incorrecta")
-        entrada=parseInt(prompt("1. Para ver el catalogo completo\n2.Para productos de gatos\n3.Para ver productos de perros\n4. Para ver productos para otras mascotas\n5. Para salir\n6. Para ver el carrito"))
+        entrada=parseInt(prompt("1. Para ver el catalogo completo\n2.Para productos de gatos\n3.Para ver productos de perros\n4. Para ver productos para otras mascotas\n5. Para ver el carrito\n6. Para salir"))
     }    
     switch(entrada){
         case 1:
@@ -103,9 +105,6 @@ const menu = () =>{
             addProduct(productos, "Otro")
             break
         case 5:
-            alert("Hasta luego...")
-            break
-        case 6:
             if(carrito.length === 0){
                 alert("El carrito se encuentra vacio")
                 menu()
@@ -115,9 +114,12 @@ const menu = () =>{
             alert(`${mostrar.join("\n")}\nTotal : $${total}`)
             menu()
             break 
+        case 6:
+            alert("Hasta luego...")
+            break
         default:
             alert("Opcion incorrecta")
-            entrada=parseInt(prompt("1. Para ver el catalogo completo\n2.Para productos de gatos\n3.Para ver productos de perros\n4. Para ver productos para otras mascotas\n5. Para salir\n6. Para ver el carrito")
+            entrada=parseInt(prompt("1. Para ver el catalogo completo\n2.Para productos de gatos\n3.Para ver productos de perros\n4. Para ver productos para otras mascotas\n5. Para ver el carrito\n6. Para salir")
             )     
             break
         }
@@ -125,8 +127,6 @@ const menu = () =>{
 
 // MAIN
 menu()
-
-
 
 
 
