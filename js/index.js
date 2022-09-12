@@ -83,11 +83,7 @@ const addProduct = (array, tipo) => {
 
 // FUNCION MENU
 const menu = () =>{
-    let entrada=parseInt(prompt("1. Para ver el catalogo completo\n2.Para productos de gatos\n3.Para ver productos de perros\n4. Para ver productos para otras mascotas\n5. Para ver el carrito\n6. Para salir"))
-    if(typeof(entrada) === NaN){
-        alert("Opcion incorrecta")
-        entrada=parseInt(prompt("1. Para ver el catalogo completo\n2.Para productos de gatos\n3.Para ver productos de perros\n4. Para ver productos para otras mascotas\n5. Para ver el carrito\n6. Para salir"))
-    }    
+    let entrada=parseInt(prompt("1. Para ver el catalogo completo\n2.Para productos de gatos\n3.Para ver productos de perros\n4. Para ver productos para otras mascotas\n5. Para ver el carrito\n6. Para salir"))    
     switch(entrada){
         case 1:
             let catalogo = productos.map(elem => elem.mostrarP())
@@ -119,8 +115,7 @@ const menu = () =>{
             break
         default:
             alert("Opcion incorrecta")
-            entrada=parseInt(prompt("1. Para ver el catalogo completo\n2.Para productos de gatos\n3.Para ver productos de perros\n4. Para ver productos para otras mascotas\n5. Para ver el carrito\n6. Para salir")
-            )     
+            menu()
             break
         }
     }
