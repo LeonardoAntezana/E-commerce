@@ -7,8 +7,10 @@ class Usuario{
 }
 // CLASE PRODUCTO
 class Producto{
-    constructor(nombre, precio){
+    constructor(id,nombre,tipo,precio){
+        this.id= id
         this.nombre= nombre
+        this.tipo= tipo
         this.precio= parseFloat(precio)
     }
 
@@ -21,38 +23,56 @@ class Producto{
         this.precio= this.precio - (this.precio * 0.10)
         return this.precio
     }
+
+    mostrarP(){
+        return `${this.nombre}      $${this.precio}`
+    }
 }
 
 // STOCK DE PRODUCTOS
-const productos=[{id:1, nombre:"Heladera", desc:"electrodomestico", precio:100000}, {id:2, nombre:"Televisor", desc:"tecnologia", precio:70000}, 
-{id:3, nombre:"Celular", desc:"tecnologia", precio:50000}, {id:4, nombre:"Cama", desc:"descanso", precio:120000},
-{id:5, nombre:"Sillon", desc:"decoracion", precio:40000}, {id:6, nombre:"Cafetera", desc:"electrodomestico", precio:100000}]
+const productos=[new Producto(1,"Excellent","Gato", 7000),new Producto(2,"Pedigree","Perro",10000), 
+new Producto(3,"Dog Chow","Perro",5000), new Producto(4,"Whiskas","Gato", 8000),new Producto(5,"Heno","Otro",3000),
+new Producto(6,"Shulet","Otro",500),]
 
 
 
 // VARIABLES GLOBALES
 const carrito=[]
+const catalogo= []
+const usuarios=[new Usuario("Furixxx","1234"), new Usuario("Blade","4567"), new Usuario("Leoni","8901")]
+
+
+// FUNCION LOGIN
+const login = () =>{
+    let user= new Usuario(prompt("Ingrese nombre de usuario"),prompt("Ingrese clave"))
+    let validacion= usuarios.some(elem => elem.name === user.name && elem.password === user.password)
+    if(validacion == true){
+        TotalCarrito()
+    }
+    else{
+        alert("Usuario no encontrado")
+        login()
+    }
+}
 
 
 // FUNCION CATALOGO
-function MostrarCatalogo(){
-    const catalogo= []
+function Catalogo(){
     productos.forEach((elem) => {catalogo.push(`${elem.id}. ${elem.nombre}  $${elem.precio}`)})
-    alert(catalogo.join("\n"))
 }
 
 // FUNCION INGRESO DE PRODUCTOS AL CARRITO
 function Ingreso(){
     let entrada= prompt("Ingrese numero del producto a agregar al carrito o Fin para terminar")
-    while(entrada != "Fin" && entrada != "fin"){
+    while(entrada != "Fin" && entrada != "fin" && entrada != ""){
         let productId= productos.find(product => product.id === parseInt(entrada))
         carrito.push(productId)
-        MostrarCatalogo()
+        alert(catalogo.join("\n"))
         entrada= prompt("Ingrese numero del producto a agregar al carrito o Fin para terminar")
     }
     if(carrito.length === 0){
-        alert("Carrito vacio")
-        Ingreso()
+        alert("El carrito esta vacio")
+        menu()
     }
     let carritoMsj= carrito.map(elem => `${elem.nombre}     $${elem.precio}`)
     alert(carritoMsj.join("\n"))
@@ -74,14 +94,51 @@ function TotalCarrito(){
     }
 }
 
+
+// FUNCION MENU
+const menu = () =>{
+    let entrada=parseInt(prompt("1. Para ver el catalogo completo\n2.Para productos de gatos\n3.Para ver productos de perros\n4. Para ver productos para otras mascotas\n5. Para salir")
+    )
+    if(typeof(entrada) === NaN){
+        alert("Opcion incorrecta")
+        entrada=parseInt(prompt("1. Para ver el catalogo completo\n2.Para productos de gatos\n3.Para ver productos de perros\n4. Para ver productos para otras mascotas\n5. Para salir")
+    )
+    }    
+    switch(entrada){
+        case 1:
+            alert(catalogo.join("\n"))
+            Ingreso()
+            login()
+            break
+        case 2:
+            let filtroGato= productos.filter(elem => elem.tipo === "Gato")
+            let mostrar= filtroGato.map(elem => `${elem.nombre}      $${elem.precio}`)
+            alert(mostrar.join("\n"))
+            break
+        case 3:
+            let filtroPerro= productos.filter(elem => elem.tipo === "Perro")
+            let mostrarPerros= filtroPerro.map(elem => `${elem.nombre}      $${elem.precio}`)
+            alert(mostrarPerros.join("\n"))
+            break
+        case 4:
+            let filtroOtro= productos.filter(elem => elem.tipo === "Otro")
+            let mostrarOtros= filtroOtro.map(elem => `${elem.nombre}      $${elem.precio}`)
+            alert(mostrarOtros.join("\n"))
+            break
+        case 5:
+            alert("Hasta luego...")
+            break
+        default:
+            alert("Opcion incorrecta")
+            entrada=parseInt(prompt("1. Para ver el catalogo completo\n2.Para productos de gatos\n3.Para ver productos de perros\n4. Para ver productos para otras mascotas\n5. Para salir")
+            )
+            break
+        }
+    }
+
 // MAIN
-MostrarCatalogo()
-Ingreso()
-TotalCarrito()
-
-
-
-
+Catalogo()
+menu()
 
 
 
