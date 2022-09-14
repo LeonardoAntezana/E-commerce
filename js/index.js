@@ -7,11 +7,12 @@ class Usuario{
 }
 // CLASE PRODUCTO
 class Producto{
-    constructor(id,nombre,tipo,precio){
+    constructor(id,nombre,tipo,precio, imagen){
         this.id= id
         this.nombre= nombre
         this.tipo= tipo
         this.precio= parseFloat(precio)
+        this.imagen= imagen
     }
 
     sumaIva(){
@@ -33,9 +34,9 @@ class Producto{
 const carrito=[]
 const usuarios=[new Usuario("Furixxx","1234"), new Usuario("Blade","4567"), new Usuario("Leoni","8901")]
 // STOCK DE PRODUCTOS
-const productos=[new Producto(1,"Excellent","Gato", 7000),new Producto(2,"Pedigree","Perro",10000), 
-new Producto(3,"Dog Chow","Perro",5000), new Producto(4,"Whiskas","Gato", 8000),new Producto(5,"Heno","Otro",3000),
-new Producto(6,"Shulet","Otro",500),]
+const productos=[new Producto(1,"Excellent","Gato", 7000, "./images/excellent.png"),new Producto(2,"Pedigree","Perro",10000, "./images/pedigree.png"), 
+new Producto(3,"Dog Chow","Perro",5000, "./images/dog-chow.png"), new Producto(4,"Whiskas","Gato", 8000, "./images/whiskas.png"),new Producto(5,"Heno","Otro",3000, "./images/heno.png"),
+new Producto(6,"Shulet","Otro",500, "./images/peces.png"),]
 
 
 // FUNCION LOGIN  |  ESTA FUNCION LA VOY A UTILIZAR SOLO QUE POR TIEMPOS DECIDI DARLE MAS IMPORTANCIA A LOS PRODUCTOS   |
@@ -121,8 +122,35 @@ const menu = () =>{
     }
 
 // MAIN
-menu()
+
+const Presentar = array => {
+    array.forEach(producto =>{
+        const card = document.createElement("div")
+        card.className = "product"
+        card.innerHTML = `<img src="${producto.imagen}" alt="img-alimento">
+                        <h2>${producto.nombre}</h2>
+                        <span class="precio">$${producto.precio}<span>`
+        conteiner.appendChild(card)
+    })
+}
+
+const conteiner = document.querySelector("#conteiner__productos")
 
 
+// menu()
+Presentar(productos)
 
 
+const filtroPerro= productos.filter(elem => elem.tipo === "Perro")
+const botonPerro = document.querySelector("#filtroPerro")
+botonPerro.onclick = () => {
+    conteiner.innerHTML = ""
+    Presentar(filtroPerro)}
+
+
+const filtroGato = productos.filter(elem => elem.tipo === "Gato")
+const botonGato = document.querySelector("#filtroGato")
+botonGato.onclick = () => {
+    conteiner.innerHTML = ""
+    Presentar(filtroGato)
+}
