@@ -70,15 +70,20 @@ main .destacados {
         padding: 1em;
         box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.5);
         margin-bottom: 1em;
-        transition: box-shadow 0.5s; }
+        transition: box-shadow 0.5s;
+        width: 23em; }
         main .destacados .conteiner #conteiner__productos .product:hover {
           box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.5);
           cursor: pointer; }
-        main .destacados .conteiner #conteiner__productos .product img {
-          width: 15em;
-          height: 15em; }
+        main .destacados .conteiner #conteiner__productos .product div {
+          display: flex;
+          justify-content: center; }
+          main .destacados .conteiner #conteiner__productos .product div img {
+            width: 15em;
+            height: 15em; }
         main .destacados .conteiner #conteiner__productos .product h2 {
-          margin-bottom: 0.5em; }
+          font-size: 1.2em;
+          margin: 0.5em 0; }
         main .destacados .conteiner #conteiner__productos .product .datos {
           display: flex;
           justify-content: space-between; }

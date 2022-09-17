@@ -74,16 +74,22 @@ main{
                     box-shadow: 0 0 4px 0 rgba(0,0,0,0.5);
                     margin-bottom: 1em;
                     transition: box-shadow 0.5s;
+                    width: 23em;
                     &:hover{
                         box-shadow: 0 0 16px 0 rgba(0,0,0,0.5);
                         cursor: pointer;
                     }
-                    img{
-                        width: 15em;
-                        height: 15em;
+                    div{
+                        display: flex;
+                        justify-content: center;
+                        img{
+                            width: 15em;
+                            height: 15em;
+                        }
                     }
                     h2{
-                        margin-bottom: 0.5em;
+                        font-size: 1.2em;
+                        margin: 0.5em 0;
                     }
                     .datos{
                         display: flex;
