@@ -37,8 +37,14 @@ const usuarios=[new Usuario("Furixxx","1234"), new Usuario("Blade","4567"), new 
 // STOCK DE PRODUCTOS
 const productos=[new Producto(1,"Excellent","Gato", 7000, "./images/excellent.png", "15kg"),new Producto(2,"Pedigree","Perro",10000,"./images/pedigree.png", "10kg"), 
 new Producto(3,"Dog Chow","Perro",5000, "./images/dog-chow.png","15kg"), new Producto(4,"Whiskas","Gato", 8000, "./images/whiskas.png", "7kg"),new Producto(5,"Heno","Otro",3000, "./images/heno.png", "500gr"),
-new Producto(6,"Shulet","Otro",500, "./images/peces.png", "150gr"),]
-
+new Producto(6,"Shulet","Otro",500, "./images/peces.png", "150gr"), new Producto(7, "ProPlan", "Gato",19000, "./images/Proplan-gato.png", "15kg"),
+new Producto(8,"Royal Canin", "Gato",7800, "./images/royal-canin-gato.png", "7.5kg"), new Producto(9, "VitalCan", "Perro", 8870, "./images/vital-can-perro.png", "20kg"), 
+new Producto(10,"Eukanuba", "Perro", 10425, "./images/eukanuba-perro.png", "15kg"),new Producto(11, "Proplan Puppy", "Perro", 3900, "./images/proplan-perro.png", "3kg"),
+new Producto(12, "Nutrafin Max", "Otro", 680, "./images/nutrafin.png", "50gr"),new Producto(13, "Nutrafin Tortugas", "Otro", 460, "./images/nutrafin-tortugas.png", "20gr"),
+new Producto(14,"Infinity", "Gato", 4185, "./images/infinity-gato.png", "10kg"),new Producto(15, "ProPlan Active Mind", "Perro", 3900, "./images/proplanActive-perro.png", "3kg"),
+new Producto(16, "Maintenance Criadores", "Perro", 4140, "./images/mainCriadores.png", "22kg"),new Producto(17, "VitalCat (control de peso)", "Gato", 7535, "./images/vitalCat.png", "7.5kg"),
+new Producto(18,"Old Prince Novel", "Perro", 8900, "./images/oldPrince.png", "15kg"),new Producto(19, "Vegetales para Canario Zootec", "Otro", 780, "./images/zootec-canario.png", "40gr"),
+new Producto(20, "Veggie para Aves Zootec", "Otro", 525, "./images/veggieZootec.png", "100gr"),]
 
 // FUNCION LOGIN  |  ESTA FUNCION LA VOY A UTILIZAR SOLO QUE POR TIEMPOS DECIDI DARLE MAS IMPORTANCIA A LOS PRODUCTOS   |
 const login = () =>{
@@ -128,7 +134,7 @@ const Presentar = array => {
     array.forEach(producto =>{
         const card = document.createElement("div")
         card.className = "product"
-        card.innerHTML = `<img src="${producto.imagen}" alt="img-alimento">
+        card.innerHTML = `<div><img src="${producto.imagen}" alt="img-alimento"></div>
                         <h2 class= "title">${producto.nombre}</h2>
                         <div class="datos">
                         <span class="precio">$${producto.precio}</span>
@@ -158,4 +164,11 @@ const botonGato = document.querySelector("#filtroGato")
 botonGato.onclick = () => {
     conteiner.innerHTML = ""
     Presentar(filtroGato)
+}
+
+const filtroOtro = productos.filter(elem => elem.tipo === "Otro")
+const botonOtros = document.querySelector("#filtroOtro")
+botonOtros.onclick = () => {
+    conteiner.innerHTML = ""
+    Presentar(filtroOtro)
 }
