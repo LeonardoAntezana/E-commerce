@@ -128,8 +128,7 @@ const menu = () =>{
         }
     }
 
-// MAIN
-
+// FUNCION PARA AGREGAR ELEMENTOS AL DOM
 const Presentar = array => {
     array.forEach(producto =>{
         const card = document.createElement("div")
@@ -145,15 +144,13 @@ const Presentar = array => {
     })
 }
 
+
+// MAIN
 const conteiner = document.querySelector("#conteiner__productos")
-
-
-// menu()
-Presentar(productos)
-
-
 const filtroPerro= productos.filter(elem => elem.tipo === "Perro")
 const botonPerro = document.querySelector("#filtroPerro")
+
+// AGREGANDO EVENTO PARA FILTRAR SOBRE PRODUCTOS TIPO PERRO
 botonPerro.onclick = () => {
     conteiner.innerHTML = ""
     Presentar(filtroPerro)}
@@ -161,6 +158,7 @@ botonPerro.onclick = () => {
 
 const filtroGato = productos.filter(elem => elem.tipo === "Gato")
 const botonGato = document.querySelector("#filtroGato")
+// AGREGANDO EVENTO PARA FILTRAR SOBRE PRODUCTOS TIPO GATO
 botonGato.onclick = () => {
     conteiner.innerHTML = ""
     Presentar(filtroGato)
@@ -168,7 +166,10 @@ botonGato.onclick = () => {
 
 const filtroOtro = productos.filter(elem => elem.tipo === "Otro")
 const botonOtros = document.querySelector("#filtroOtro")
+// AGREGANDO EVENTO PARA FILTRAR SOBRE PRODUCTOS TIPO OTRO
 botonOtros.onclick = () => {
     conteiner.innerHTML = ""
     Presentar(filtroOtro)
 }
+
+Presentar(productos)
