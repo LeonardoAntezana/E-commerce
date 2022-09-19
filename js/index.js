@@ -1,10 +1,3 @@
-// CLASE USUARIO    |  ESTA CLASE LA VOY A UTILIZAR SOLO QUE POR TIEMPOS DECIDI DARLE MAS IMPORTANCIA A LOS PRODUCTOS   |
-class Usuario{
-    constructor(name,password){
-        this.name= name
-        this.password= password
-    }
-}
 // CLASE PRODUCTO
 class Producto{
     constructor(id,nombre,tipo,precio, imagen,peso){
@@ -31,9 +24,6 @@ class Producto{
     }
 }
 
-// VARIABLES GLOBALES
-const carrito=[]
-const usuarios=[new Usuario("Furixxx","1234"), new Usuario("Blade","4567"), new Usuario("Leoni","8901")]
 // STOCK DE PRODUCTOS
 const productos=[new Producto(1,"Excellent","Gato", 7000, "./images/excellent.png", "15kg"),new Producto(2,"Pedigree","Perro",10000,"./images/pedigree.png", "10kg"), 
 new Producto(3,"Dog Chow","Perro",5000, "./images/dog-chow.png","15kg"), new Producto(4,"Whiskas","Gato", 8000, "./images/whiskas.png", "7kg"),new Producto(5,"Heno","Otro",3000, "./images/heno.png", "500gr"),
@@ -46,87 +36,17 @@ new Producto(16, "Maintenance Criadores", "Perro", 4140, "./images/mainCriadores
 new Producto(18,"Old Prince Novel", "Perro", 8900, "./images/oldPrince.png", "15kg"),new Producto(19, "Vegetales para Canario Zootec", "Otro", 780, "./images/zootec-canario.png", "40gr"),
 new Producto(20, "Veggie para Aves Zootec", "Otro", 525, "./images/veggieZootec.png", "100gr"),]
 
-// FUNCION LOGIN  |  ESTA FUNCION LA VOY A UTILIZAR SOLO QUE POR TIEMPOS DECIDI DARLE MAS IMPORTANCIA A LOS PRODUCTOS   |
-const login = () =>{
-    let user= new Usuario(prompt("Ingrese nombre de usuario"),prompt("Ingrese clave"))
-    let validacion= usuarios.some(elem => elem.name === user.name && elem.password === user.password)
-    if(validacion == true){
-        TotalCarrito()
-    }
-    else{
-        alert("Usuario no encontrado")
-        login()
-    }
+// VARIABLES GLOBALES
+const totalCarrito = document.querySelector('#totalCarrito')
+const containerCarrito = document.querySelector('#carrito-contenedor')
+const carrito=[]
+const buttonLimpiar = document.getElementById("vaciarCarrito")
+buttonLimpiar.onclick = () => {
+    carrito.length = 0
+    mostrarCarrito()
+    totalCarrito.innerText = 0
 }
 
-
-// FUNCION FILTRADO
-const filtrado = (array, tipo) => {
-    let filtro = array.filter(elem => elem.tipo === tipo)
-    let mostrar = filtro.map(elem => elem.mostrarP())
-    let mostrarProductos= mostrar.join("\n")
-    alert(mostrarProductos)  
-}
-
-
-// AGREGAR AL CARRITO
-const addProduct = (array, tipo) => {
-    filtrado(array,tipo)
-    let entrada = prompt("Ingrese nombre del producto a agregar al carrito o fin para terminar")
-    while(entrada.toLowerCase() != "fin"){
-        let prodId = productos.find(elem => elem.nombre === entrada)
-        if(prodId === undefined){
-            alert("Opcion incorrecta")
-            filtrado(array,tipo)
-            entrada = prompt("Ingrese nombre del producto a agregar al carrito o fin para terminar")   
-        }
-        else if(prodId != undefined){
-            carrito.push(prodId)
-        }
-        entrada = prompt("Ingrese nombre del producto a agregar al carrito o fin para terminar")
-    }
-    menu()
-}
-
-
-// FUNCION MENU
-const menu = () =>{
-    let entrada=parseInt(prompt("1. Para ver el catalogo completo\n2.Para productos de gatos\n3.Para ver productos de perros\n4. Para ver productos para otras mascotas\n5. Para ver el carrito\n6. Para salir"))    
-    switch(entrada){
-        case 1:
-            let catalogo = productos.map(elem => elem.mostrarP())
-            let mostrarCatalogo= catalogo.join("\n")
-            alert(mostrarCatalogo)
-            menu()
-            break
-        case 2:
-            addProduct(productos,"Gato")
-            break
-        case 3:
-           addProduct(productos, "Perro")
-            break
-        case 4:
-            addProduct(productos, "Otro")
-            break
-        case 5:
-            if(carrito.length === 0){
-                alert("El carrito se encuentra vacio")
-                menu()
-            }
-            let total = carrito.reduce((acc, elem) => acc + elem.precio, 0)
-            let mostrar= carrito.map(elem => elem.mostrarP())
-            alert(`${mostrar.join("\n")}\nTotal : $${total}`)
-            menu()
-            break 
-        case 6:
-            alert("Hasta luego...")
-            break
-        default:
-            alert("Opcion incorrecta")
-            menu()
-            break
-        }
-    }
 
 // FUNCION PARA AGREGAR ELEMENTOS AL DOM
 const Presentar = array => {
@@ -139,14 +59,59 @@ const Presentar = array => {
                         <span class="precio">$${producto.precio}</span>
                         <span>${producto.peso}</span>
                         </div>
-                        <label for=""><button>agregar</button></label>`                     
+                        <label for=""><button id="add${producto.id}">agregar</button></label>`                     
         conteiner.appendChild(card)
+        const boton = document.querySelector(`#add${producto.id}`)
+        boton.onclick = () =>{
+            agregarProducto(producto.id)
+        }
     })
 }
 
 
+// ARROW FUNCTION PARA AGREGAR PRODUCTOS
+const agregarProducto = productoId => {
+    const producto = productos.find(elem => elem.id  === productoId)
+    carrito.push(producto)
+    mostrarCarrito()  
+}
+
+const eliminarProducto = productoId => {
+    let product = carrito.find(elem => elem.id === productoId)
+    let index = carrito.indexOf(product)
+    carrito.splice(index,1)
+    mostrarCarrito()
+}
+
+// MOSTRAR CARRITO
+const mostrarCarrito = () => {
+    containerCarrito.innerHTML = ""
+    carrito.forEach(producto => {
+        const div = document.createElement("div")
+        div.className = "producto-carrito"
+        div.innerHTML =`<li>
+                        <span>${producto.nombre}----${producto.precio}</span>
+                        <button id="quitar${producto.id}">Eliminar</button>
+                        </li>`     
+        containerCarrito.appendChild(div)
+        const boton = document.querySelector(`#quitar${producto.id}`)
+        boton.onclick = () => {
+            eliminarProducto(producto.id)
+        }
+        let total =  carrito.reduce((acc,elem) => acc + elem.precio, 0)
+        if(total >= 15000){
+            totalCarrito.innerText = `${total} e incluye envio gratis!`
+        }
+        else{
+            totalCarrito.innerText = `${total}`
+        }
+    })
+}
+
 // MAIN
+
 const conteiner = document.querySelector("#conteiner__productos")
+Presentar(productos)
 const filtroPerro= productos.filter(elem => elem.tipo === "Perro")
 const botonPerro = document.querySelector("#filtroPerro")
 
@@ -172,4 +137,5 @@ botonOtros.onclick = () => {
     Presentar(filtroOtro)
 }
 
-Presentar(productos)
+
+
