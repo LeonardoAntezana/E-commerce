@@ -110,10 +110,62 @@ main{
                             &:hover{background-color: #607495;}
                         }
                     }
-                }}
                 }
+            }   
+        }
+    }
+    .card__carrito{
+        width: 25em;
+        margin: 3em auto;
+        border: 2px solid black;
+        border-radius: 4px;
+        padding: 3em 1em;
+        .carrito-datos{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            p{
+                font-size: 1.2em;
+            }
+            span{
+                font-weight: bold;
+                font-size: 1.5em;
+                margin: 0.5em 0;
+            }
+            button{
+                border: none;
+                padding: 0.3em 0.5em;
+                background-color:#95b8f6;
+                color: white;
+                font-weight: bold;
+                text-transform: uppercase;
             }
         }
-
-    
+    }
+}
+footer{
+    background-color: black;
+    display: flex;
+    justify-content: space-around;
+    padding: 4em 0;
+    li{
+        font-weight: 900;
+        padding: 0.5em;
+        font-size: 1.2em;
+        color: white;
+    }
+    .contactos{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 50%;
+        a{
+            color: white;
+            transition: color 0.5s;
+            &:hover{
+                color: gray;
+            }
+        }
+    }
+}
 

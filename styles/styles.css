@@ -7,6 +7,10 @@ body {
   padding: 0;
   box-sizing: border-box; }
 
+a {
+  text-decoration: none;
+  color: black; }
+
 li {
   list-style: none; }
 
@@ -101,3 +105,48 @@ main .destacados {
             transition: background-color 0.3s; }
             main .destacados .conteiner #conteiner__productos .product label button:hover {
               background-color: #607495; }
+
+main .card__carrito {
+  width: 25em;
+  margin: 3em auto;
+  border: 2px solid black;
+  border-radius: 4px;
+  padding: 3em 1em; }
+  main .card__carrito .carrito-datos {
+    display: flex;
+    flex-direction: column;
+    align-items: center; }
+    main .card__carrito .carrito-datos p {
+      font-size: 1.2em; }
+    main .card__carrito .carrito-datos span {
+      font-weight: bold;
+      font-size: 1.5em;
+      margin: 0.5em 0; }
+    main .card__carrito .carrito-datos button {
+      border: none;
+      padding: 0.3em 0.5em;
+      background-color: #95b8f6;
+      color: white;
+      font-weight: bold;
+      text-transform: uppercase; }
+
+footer {
+  background-color: black;
+  display: flex;
+  justify-content: space-around;
+  padding: 4em 0; }
+  footer li {
+    font-weight: 900;
+    padding: 0.5em;
+    font-size: 1.2em;
+    color: white; }
+  footer .contactos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50%; }
+    footer .contactos a {
+      color: white;
+      transition: color 0.5s; }
+      footer .contactos a:hover {
+        color: gray; }
