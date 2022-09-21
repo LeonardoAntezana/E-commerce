@@ -39,12 +39,13 @@ new Producto(20, "Veggie para Aves Zootec", "Otro", 525, "./images/veggieZootec.
 // VARIABLES GLOBALES
 const totalCarrito = document.querySelector('#totalCarrito')
 const containerCarrito = document.querySelector('#carrito-contenedor')
+const verCatalogo = document.querySelector('#catalogo')
 const carrito=[]
 const buttonLimpiar = document.getElementById("vaciarCarrito")
 buttonLimpiar.onclick = () => {
     carrito.length = 0
     mostrarCarrito()
-    totalCarrito.innerText = 0
+    totalCarrito.innerHTML = "0"
 }
 
 
@@ -89,10 +90,9 @@ const mostrarCarrito = () => {
     carrito.forEach(producto => {
         const div = document.createElement("div")
         div.className = "producto-carrito"
-        div.innerHTML =`<li>
-                        <span>${producto.nombre}----${producto.precio}</span>
-                        <button id="quitar${producto.id}">Eliminar</button>
-                        </li>`     
+        div.innerHTML =`<span>${producto.nombre} ---- $${producto.precio}</span>
+                        <button id="restar">Uno menos</button><button id="sumar">Uno mas</button>
+                        <button id="quitar${producto.id}" class="boton-eliminar">Eliminar</button>`     
         containerCarrito.appendChild(div)
         const boton = document.querySelector(`#quitar${producto.id}`)
         boton.onclick = () => {
@@ -103,8 +103,7 @@ const mostrarCarrito = () => {
             totalCarrito.innerText = `${total} e incluye envio gratis!`
         }
         else{
-            totalCarrito.innerText = `${total}`
-        }
+            totalCarrito.innerText = `${total}`}
     })
 }
 
@@ -112,6 +111,11 @@ const mostrarCarrito = () => {
 
 const conteiner = document.querySelector("#conteiner__productos")
 Presentar(productos)
+verCatalogo.onclick = () => {
+    conteiner.innerHTML= ""
+    Presentar(productos)
+}
+
 const filtroPerro= productos.filter(elem => elem.tipo === "Perro")
 const botonPerro = document.querySelector("#filtroPerro")
 
