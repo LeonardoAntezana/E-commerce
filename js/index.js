@@ -97,14 +97,13 @@ const mostrarCarrito = () => {
         const boton = document.querySelector(`#quitar${producto.id}`)
         boton.onclick = () => {
             eliminarProducto(producto.id)
-        }
+        }})
         let total =  carrito.reduce((acc,elem) => acc + elem.precio, 0)
         if(total >= 15000){
             totalCarrito.innerText = `${total} e incluye envio gratis!`
         }
         else{
             totalCarrito.innerText = `${total}`}
-    })
 }
 
 // MAIN
