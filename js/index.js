@@ -1,12 +1,13 @@
 // CLASE PRODUCTO
 class Producto{
-    constructor(id,nombre,tipo,precio, imagen,peso){
+    constructor(id,nombre,tipo,precio, imagen,peso, cantidad){
         this.id= id
         this.nombre= nombre
         this.tipo= tipo
         this.precio= parseFloat(precio)
         this.imagen= imagen
         this.peso = peso
+        this.cantidad = cantidad
     }
 
     sumaIva(){
@@ -25,16 +26,16 @@ class Producto{
 }
 
 // STOCK DE PRODUCTOS
-const productos=[new Producto(1,"Excellent","Gato", 7000, "./images/excellent.png", "15kg"),new Producto(2,"Pedigree","Perro",10000,"./images/pedigree.png", "10kg"), 
-new Producto(3,"Dog Chow","Perro",5000, "./images/dog-chow.png","15kg"), new Producto(4,"Whiskas","Gato", 8000, "./images/whiskas.png", "7kg"),new Producto(5,"Heno","Otro",3000, "./images/heno.png", "500gr"),
-new Producto(6,"Shulet","Otro",500, "./images/peces.png", "150gr"), new Producto(7, "ProPlan", "Gato",19000, "./images/Proplan-gato.png", "15kg"),
-new Producto(8,"Royal Canin", "Gato",7800, "./images/royal-canin-gato.png", "7.5kg"), new Producto(9, "VitalCan", "Perro", 8870, "./images/vital-can-perro.png", "20kg"), 
-new Producto(10,"Eukanuba", "Perro", 10425, "./images/eukanuba-perro.png", "15kg"),new Producto(11, "Proplan Puppy", "Perro", 3900, "./images/proplan-perro.png", "3kg"),
-new Producto(12, "Nutrafin Max", "Otro", 680, "./images/nutrafin.png", "50gr"),new Producto(13, "Nutrafin Tortugas", "Otro", 460, "./images/nutrafin-tortugas.png", "20gr"),
-new Producto(14,"Infinity", "Gato", 4185, "./images/infinity-gato.png", "10kg"),new Producto(15, "ProPlan Active Mind", "Perro", 3900, "./images/proplanActive-perro.png", "3kg"),
-new Producto(16, "Maintenance Criadores", "Perro", 4140, "./images/mainCriadores.png", "22kg"),new Producto(17, "VitalCat (control de peso)", "Gato", 7535, "./images/vitalCat.png", "7.5kg"),
-new Producto(18,"Old Prince Novel", "Perro", 8900, "./images/oldPrince.png", "15kg"),new Producto(19, "Vegetales para Canario Zootec", "Otro", 780, "./images/zootec-canario.png", "40gr"),
-new Producto(20, "Veggie para Aves Zootec", "Otro", 525, "./images/veggieZootec.png", "100gr"),]
+const productos=[new Producto(1,"Excellent","Gato", 7000, "./images/excellent.png", "15kg", 1),new Producto(2,"Pedigree","Perro",10000,"./images/pedigree.png", "10kg", 1), 
+new Producto(3,"Dog Chow","Perro",5000, "./images/dog-chow.png","15kg", 1), new Producto(4,"Whiskas","Gato", 8000, "./images/whiskas.png", "7kg", 1),new Producto(5,"Heno","Otro",3000, "./images/heno.png", "500gr", 1),
+new Producto(6,"Shulet","Otro",500, "./images/peces.png", "150gr", 1), new Producto(7, "ProPlan", "Gato",19000, "./images/Proplan-gato.png", "15kg", 1),
+new Producto(8,"Royal Canin", "Gato",7800, "./images/royal-canin-gato.png", "7.5kg", 1), new Producto(9, "VitalCan", "Perro", 8870, "./images/vital-can-perro.png", "20kg", 1), 
+new Producto(10,"Eukanuba", "Perro", 10425, "./images/eukanuba-perro.png", "15kg", 1),new Producto(11, "Proplan Puppy", "Perro", 3900, "./images/proplan-perro.png", "3kg", 1),
+new Producto(12, "Nutrafin Max", "Otro", 680, "./images/nutrafin.png", "50gr", 1),new Producto(13, "Nutrafin Tortugas", "Otro", 460, "./images/nutrafin-tortugas.png", "20gr", 1),
+new Producto(14,"Infinity", "Gato", 4185, "./images/infinity-gato.png", "10kg", 1),new Producto(15, "ProPlan Active Mind", "Perro", 3900, "./images/proplanActive-perro.png", "3kg", 1),
+new Producto(16, "Maintenance Criadores", "Perro", 4140, "./images/mainCriadores.png", "22kg", 1),new Producto(17, "VitalCat (control de peso)", "Gato", 7535, "./images/vitalCat.png", "7.5kg", 1),
+new Producto(18,"Old Prince Novel", "Perro", 8900, "./images/oldPrince.png", "15kg", 1),new Producto(19, "Vegetales para Canario Zootec", "Otro", 780, "./images/zootec-canario.png", "40gr", 1),
+new Producto(20, "Veggie para Aves Zootec", "Otro", 525, "./images/veggieZootec.png", "100gr", 1),]
 
 // VARIABLES GLOBALES
 const totalCarrito = document.querySelector('#totalCarrito')
@@ -45,7 +46,6 @@ const buttonLimpiar = document.getElementById("vaciarCarrito")
 buttonLimpiar.onclick = () => {
     carrito.length = 0
     mostrarCarrito()
-    totalCarrito.innerHTML = "0"
 }
 
 
@@ -72,15 +72,38 @@ const Presentar = array => {
 
 // ARROW FUNCTION PARA AGREGAR PRODUCTOS
 const agregarProducto = productoId => {
-    const producto = productos.find(elem => elem.id  === productoId)
-    carrito.push(producto)
+    const productR = carrito.some(elem => elem.id === productoId)
+    if(productR){
+        const producto = carrito.find(elem => elem.id  === productoId)
+        producto.cantidad ++
+    }
+    else{
+        const producto = productos.find(elem => elem.id  === productoId)
+        carrito.push(producto)
+    }
     mostrarCarrito()  
 }
 
 const eliminarProducto = productoId => {
     let product = carrito.find(elem => elem.id === productoId)
     let index = carrito.indexOf(product)
+    product.cantidad = 1
     carrito.splice(index,1)
+    mostrarCarrito()
+}
+
+const restarCantidad = productoId => {
+    let item = carrito.find(elem => elem.id === productoId)
+    item.cantidad --
+    if(item.cantidad <=0){
+        item.cantidad = 1
+    }
+    mostrarCarrito()
+} 
+
+const sumarCantidad = productoId => {
+    let item = carrito.find(elem => elem.id === productoId)
+    item.cantidad ++
     mostrarCarrito()
 }
 
@@ -91,19 +114,30 @@ const mostrarCarrito = () => {
         const div = document.createElement("div")
         div.className = "producto-carrito"
         div.innerHTML =`<span>${producto.nombre} ---- $${producto.precio}</span>
-                        <button id="restar">Uno menos</button><button id="sumar">Uno mas</button>
+                        <div class="quantity">Cantidad: ${producto.cantidad}</div>
+                        <button id="restar${producto.id}">Uno menos</button><button id="sumar${producto.id}">Uno mas</button>
                         <button id="quitar${producto.id}" class="boton-eliminar">Eliminar</button>`     
         containerCarrito.appendChild(div)
         const boton = document.querySelector(`#quitar${producto.id}`)
         boton.onclick = () => {
             eliminarProducto(producto.id)
-        }})
-        let total =  carrito.reduce((acc,elem) => acc + elem.precio, 0)
+        }
+        const botonRestar = document.querySelector(`#restar${producto.id}`)
+        botonRestar.onclick = () => {
+            restarCantidad(producto.id)
+        }
+        const botonSumar = document.querySelector(`#sumar${producto.id}`)
+        botonSumar.onclick = () => {
+            sumarCantidad(producto.id)
+        }
+        }
+    )
+        let total =  carrito.reduce((acc,elem) => acc + elem.precio * elem.cantidad, 0)
         if(total >= 15000){
-            totalCarrito.innerText = `${total} e incluye envio gratis!`
+            totalCarrito.innerText = `$${total} e incluye envio gratis!`
         }
         else{
-            totalCarrito.innerText = `${total}`}
+            totalCarrito.innerText = `$${total}`}
 }
 
 // MAIN
