@@ -41,13 +41,12 @@ new Producto(20, "Veggie para Aves Zootec", "Otro", 525, "./images/veggieZootec.
 const totalCarrito = document.querySelector('#totalCarrito')
 const containerCarrito = document.querySelector('#carrito-contenedor')
 const verCatalogo = document.querySelector('#catalogo')
-const carrito=[]
+let carrito=[]
 const buttonLimpiar = document.getElementById("vaciarCarrito")
 buttonLimpiar.onclick = () => {
     carrito.length = 0
     mostrarCarrito()
 }
-
 
 // FUNCION PARA AGREGAR ELEMENTOS AL DOM
 const Presentar = array => {
@@ -132,12 +131,17 @@ const mostrarCarrito = () => {
         }
         }
     )
+        localStorage.setItem('carrito', JSON.stringify(carrito))
         let total =  carrito.reduce((acc,elem) => acc + elem.precio * elem.cantidad, 0)
-        if(total >= 15000){
-            totalCarrito.innerText = `$${total} e incluye envio gratis!`
-        }
-        else{
-            totalCarrito.innerText = `$${total}`}
+        total > 15000 ? totalCarrito.innerText = `$${total} e incluye envio gratis!` : totalCarrito.innerText = `$${total}`  
+
+}
+
+// LOCALSTORAGE
+const carritoStorage = JSON.parse(localStorage.getItem('carrito'))
+if(carritoStorage){
+    carrito = carritoStorage
+    mostrarCarrito()
 }
 
 // MAIN
