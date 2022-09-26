@@ -107,15 +107,35 @@ main .destacados {
               background-color: #607495; }
 
 main .card__carrito {
-  width: 25em;
+  width: 28em;
   margin: 3em auto;
   border: 2px solid black;
   border-radius: 4px;
-  padding: 3em 1em; }
+  padding: 3em 0; }
+  main .card__carrito #carrito-contenedor .producto-carrito {
+    padding: 1em 2em;
+    width: 100%; }
+    main .card__carrito #carrito-contenedor .producto-carrito p {
+      font-size: 1.3em;
+      margin-bottom: 0.5em; }
+    main .card__carrito #carrito-contenedor .producto-carrito .botones {
+      margin-top: 0.5em;
+      display: flex;
+      justify-content: space-evenly; }
+      main .card__carrito #carrito-contenedor .producto-carrito .botones button {
+        border: none;
+        color: white;
+        background-color: #95b8f6;
+        padding: 0.3em 0.5em;
+        transition: color 0.3s; }
+        main .card__carrito #carrito-contenedor .producto-carrito .botones button:hover {
+          cursor: pointer;
+          color: black; }
   main .card__carrito .carrito-datos {
     display: flex;
     flex-direction: column;
-    align-items: center; }
+    align-items: center;
+    margin-top: 2em; }
     main .card__carrito .carrito-datos p {
       font-size: 1.2em; }
     main .card__carrito .carrito-datos span {

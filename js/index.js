@@ -112,10 +112,12 @@ const mostrarCarrito = () => {
     carrito.forEach(producto => {
         const div = document.createElement("div")
         div.className = "producto-carrito"
-        div.innerHTML =`<span>${producto.nombre} ---- $${producto.precio}</span>
+        div.innerHTML =`<p>${producto.nombre}</p>
+                        <span>$${producto.precio}</span>
                         <div class="quantity">Cantidad: ${producto.cantidad}</div>
-                        <button id="restar${producto.id}">Uno menos</button><button id="sumar${producto.id}">Uno mas</button>
-                        <button id="quitar${producto.id}" class="boton-eliminar">Eliminar</button>`     
+                        <div class= "botones"><button id="restar${producto.id}">Uno menos</button><button id="sumar${producto.id}">Uno mas</button>
+                        <button id="quitar${producto.id}" class="boton-eliminar">Eliminar</button>
+                        </div>`     
         containerCarrito.appendChild(div)
         const boton = document.querySelector(`#quitar${producto.id}`)
         boton.onclick = () => {
