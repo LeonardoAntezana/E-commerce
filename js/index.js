@@ -44,10 +44,35 @@ const verCatalogo = document.querySelector('#catalogo')
 let carrito=[]
 const buttonLimpiar = document.getElementById("vaciarCarrito")
 buttonLimpiar.onclick = () => {
+    if(carrito.length > 0){
+        Swal.fire({
+            icon: 'info',
+            iconColor:'#95b8f6',
+            title: `Se vacio el carrito`,
+            padding: '1em',
+            showConfirmButton: false,
+            timer: 2000,
+            toast:true,
+            position:'center',
+    })
+    }
     carrito.length = 0
     mostrarCarrito()
 }
 
+// function alerta(icon,producto,title,posicion){
+//     Swal.fire({
+//         icon: `${icon}`,
+//         iconColor:'#95b8f6',
+//         title: `${title}`,
+//         text:`${producto.nombre}`,
+//         padding: '1em',
+//         showConfirmButton: false,
+//         timer: 2000,
+//         toast:true,
+//         position:`${posicion}`,
+//     })
+// }
 // FUNCION PARA AGREGAR ELEMENTOS AL DOM
 const Presentar = array => {
     array.forEach(producto =>{
@@ -75,10 +100,31 @@ const agregarProducto = productoId => {
     if(productR){
         const producto = carrito.find(elem => elem.id  === productoId)
         producto.cantidad ++
+        Swal.fire({
+            icon: 'success',
+            iconColor:'#95b8f6',
+            title: `Se agrego una unidad mas de ${producto.nombre} al carrito`,
+            padding: '1em',
+            showConfirmButton: false,
+            timer: 2000,
+            toast:true,
+            position:'top',
+        })
     }
     else{
         const producto = productos.find(elem => elem.id  === productoId)
         carrito.push(producto)
+        Swal.fire({
+            icon: 'success',
+            iconColor:'#95b8f6',
+            title: 'Se agrego al carrito el producto',
+            text: `${producto.nombre}`,
+            padding: '1em',
+            showConfirmButton: false,
+            timer: 2000,
+            toast:true,
+            position:'top',
+        })
     }
     mostrarCarrito()  
 }
@@ -89,6 +135,16 @@ const eliminarProducto = productoId => {
     product.cantidad = 1
     carrito.splice(index,1)
     mostrarCarrito()
+    Swal.fire({
+        icon: 'error',
+        title: 'Se elimino del carrito el producto',
+        text: `${product.nombre}`,
+        padding: '1em',
+        showConfirmButton: false,
+        timer: 2000,
+        toast:true,
+        position:'bottom',
+    })
 }
 
 const restarCantidad = productoId => {
@@ -97,12 +153,33 @@ const restarCantidad = productoId => {
     if(item.cantidad <=0){
         item.cantidad = 1
     }
+    else{
+        Swal.fire({
+            icon: 'error',
+            title: `Se elimino una unidad mas de ${item.nombre} al carrito`,
+            padding: '1em',
+            showConfirmButton: false,
+            timer: 2000,
+            toast:true,
+            position:'top',
+    })
+    }
     mostrarCarrito()
-} 
+}
 
 const sumarCantidad = productoId => {
     let item = carrito.find(elem => elem.id === productoId)
     item.cantidad ++
+    Swal.fire({
+        icon: 'success',
+        iconColor:'#95b8f6',
+        title: `Se agrego una unidad mas de ${item.nombre} al carrito`,
+        padding: '1em',
+        showConfirmButton: false,
+        timer: 2000,
+        toast:true,
+        position:'top',
+})
     mostrarCarrito()
 }
 
