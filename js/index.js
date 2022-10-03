@@ -42,7 +42,11 @@ const totalCarrito = document.querySelector('#totalCarrito')
 const containerCarrito = document.querySelector('#carrito-contenedor')
 const verCatalogo = document.querySelector('#catalogo')
 let carrito=[]
+const cardCarrito = document.querySelector('.card__carrito')
 const buttonLimpiar = document.getElementById("vaciarCarrito")
+
+
+// FUNCION PARA LIMPIAR CARRITO
 buttonLimpiar.onclick = () => {
     if(carrito.length > 0){
         Swal.fire({
@@ -56,23 +60,13 @@ buttonLimpiar.onclick = () => {
             position:'center',
     })
     }
+    carrito.forEach(elem => {
+        elem.cantidad = 1
+    })
     carrito.length = 0
     mostrarCarrito()
 }
 
-// function alerta(icon,producto,title,posicion){
-//     Swal.fire({
-//         icon: `${icon}`,
-//         iconColor:'#95b8f6',
-//         title: `${title}`,
-//         text:`${producto.nombre}`,
-//         padding: '1em',
-//         showConfirmButton: false,
-//         timer: 2000,
-//         toast:true,
-//         position:`${posicion}`,
-//     })
-// }
 // FUNCION PARA AGREGAR ELEMENTOS AL DOM
 const Presentar = array => {
     array.forEach(producto =>{
@@ -224,7 +218,6 @@ if(carritoStorage){
 }
 
 // MAIN
-
 const conteiner = document.querySelector("#conteiner__productos")
 Presentar(productos)
 verCatalogo.onclick = () => {
