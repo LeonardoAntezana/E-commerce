@@ -9,44 +9,46 @@ class Producto{
         this.peso = peso
         this.cantidad = cantidad
     }
-
-    sumaIva(){
-        this.precio= this.precio * 1.21
-        return this.precio
-    }
-
-    Descuento(){
-        this.precio= this.precio - (this.precio * 0.10)
-        return this.precio
-    }
-
-    mostrarP(){
-        return `${this.nombre}      $${this.precio}`
-    }
 }
 
-// STOCK DE PRODUCTOS
-const productos=[new Producto(1,"Excellent","Gato", 7000, "./images/excellent.png", "15kg", 1),new Producto(2,"Pedigree","Perro",10000,"./images/pedigree.png", "10kg", 1), 
-new Producto(3,"Dog Chow","Perro",5000, "./images/dog-chow.png","15kg", 1), new Producto(4,"Whiskas","Gato", 8000, "./images/whiskas.png", "7kg", 1),new Producto(5,"Heno","Otro",3000, "./images/heno.png", "500gr", 1),
-new Producto(6,"Shulet","Otro",500, "./images/peces.png", "150gr", 1), new Producto(7, "ProPlan", "Gato",19000, "./images/Proplan-gato.png", "15kg", 1),
-new Producto(8,"Royal Canin", "Gato",7800, "./images/royal-canin-gato.png", "7.5kg", 1), new Producto(9, "VitalCan", "Perro", 8870, "./images/vital-can-perro.png", "20kg", 1), 
-new Producto(10,"Eukanuba", "Perro", 10425, "./images/eukanuba-perro.png", "15kg", 1),new Producto(11, "Proplan Puppy", "Perro", 3900, "./images/proplan-perro.png", "3kg", 1),
-new Producto(12, "Nutrafin Max", "Otro", 680, "./images/nutrafin.png", "50gr", 1),new Producto(13, "Nutrafin Tortugas", "Otro", 460, "./images/nutrafin-tortugas.png", "20gr", 1),
-new Producto(14,"Infinity", "Gato", 4185, "./images/infinity-gato.png", "10kg", 1),new Producto(15, "ProPlan Active Mind", "Perro", 3900, "./images/proplanActive-perro.png", "3kg", 1),
-new Producto(16, "Maintenance Criadores", "Perro", 4140, "./images/mainCriadores.png", "22kg", 1),new Producto(17, "VitalCat (control de peso)", "Gato", 7535, "./images/vitalCat.png", "7.5kg", 1),
-new Producto(18,"Old Prince Novel", "Perro", 8900, "./images/oldPrince.png", "15kg", 1),new Producto(19, "Vegetales para Canario Zootec", "Otro", 780, "./images/zootec-canario.png", "40gr", 1),
-new Producto(20, "Veggie para Aves Zootec", "Otro", 525, "./images/veggieZootec.png", "100gr", 1),]
-
 // VARIABLES GLOBALES
+let productos = []
+const conteiner = document.querySelector("#conteiner__productos")
 const totalCarrito = document.querySelector('#totalCarrito')
 const containerCarrito = document.querySelector('#carrito-contenedor')
 const verCatalogo = document.querySelector('#catalogo')
 let carrito=[]
 const cardCarrito = document.querySelector('.card__carrito')
 const buttonLimpiar = document.getElementById("vaciarCarrito")
+const botonPerro = document.querySelector("#filtroPerro")
+const botonGato = document.querySelector("#filtroGato")
+const botonOtros = document.querySelector("#filtroOtro")
+const labelBuy = document.querySelector('#conteinerComprar') 
+const search = document.querySelector('#buscador')
 
 
-// FUNCION PARA LIMPIAR CARRITO
+const botonComprar = () => {
+    if(carrito.length > 0){
+        labelBuy.innerHTML= ""
+        let buttonBuy = document.createElement('button')
+        buttonBuy.className = 'botonComprar'
+        buttonBuy.innerText = 'FINALIZAR COMPRA'
+        labelBuy.appendChild(buttonBuy)
+        buttonBuy.onclick = () => {
+            Swal.fire({
+                icon: 'question',
+                iconColor:'#95b8f6',
+                title: `Desea finalizar la compra?`,
+                padding: '1em',
+            })
+        }
+    }
+    else{
+        labelBuy.innerHTML = ""
+    }   
+}
+
+// EVENTO PARA LIMPIAR CARRITO
 buttonLimpiar.onclick = () => {
     if(carrito.length > 0){
         Swal.fire({
@@ -63,6 +65,7 @@ buttonLimpiar.onclick = () => {
     carrito.forEach(elem => {
         elem.cantidad = 1
     })
+    
     carrito.length = 0
     mostrarCarrito()
 }
@@ -86,7 +89,6 @@ const Presentar = array => {
         }
     })
 }
-
 
 // ARROW FUNCTION PARA AGREGAR PRODUCTOS
 const agregarProducto = productoId => {
@@ -180,6 +182,7 @@ const sumarCantidad = productoId => {
 // MOSTRAR CARRITO
 const mostrarCarrito = () => {
     containerCarrito.innerHTML = ""
+    botonComprar()
     carrito.forEach(producto => {
         const div = document.createElement("div")
         div.className = "producto-carrito"
@@ -217,38 +220,63 @@ if(carritoStorage){
     mostrarCarrito()
 }
 
-// MAIN
-const conteiner = document.querySelector("#conteiner__productos")
-Presentar(productos)
-verCatalogo.onclick = () => {
-    conteiner.innerHTML= ""
-    Presentar(productos)
+// EVENTOS DE FILTRO POR TIPO DE ANIMAL
+
+const filters = array => {
+    verCatalogo.onclick = () => {
+        conteiner.innerHTML= ""
+        Presentar(array)
+    }
+    const filtroGato = array.filter(elem => elem.tipo === "Gato")
+    botonGato.onclick = () => {
+        conteiner.innerHTML = ""
+        Presentar(filtroGato)
+        }
+    const filtroOtro = array.filter(elem => elem.tipo === "Otro")
+    botonOtros.onclick = () => {
+        conteiner.innerHTML = ""
+        Presentar(filtroOtro)
+    }
+    const filtroPerro= array.filter(elem => elem.tipo === "Perro")
+    botonPerro.onclick = () => {
+        conteiner.innerHTML = ""
+        Presentar(filtroPerro)
+    }
+
 }
 
-const filtroPerro= productos.filter(elem => elem.tipo === "Perro")
-const botonPerro = document.querySelector("#filtroPerro")
-
-// AGREGANDO EVENTO PARA FILTRAR SOBRE PRODUCTOS TIPO PERRO
-botonPerro.onclick = () => {
-    conteiner.innerHTML = ""
-    Presentar(filtroPerro)}
-
-
-const filtroGato = productos.filter(elem => elem.tipo === "Gato")
-const botonGato = document.querySelector("#filtroGato")
-// AGREGANDO EVENTO PARA FILTRAR SOBRE PRODUCTOS TIPO GATO
-botonGato.onclick = () => {
-    conteiner.innerHTML = ""
-    Presentar(filtroGato)
+// FILTRADO A TRAVES DE DATOS DE USUARIO
+const buscar = (array) => {
+    search.addEventListener('input', () => {
+        let valor = search.value
+        const filtro = array.filter(producto => producto.nombre.includes(valor))
+        conteiner.innerHTML = ""
+        if(filtro.length === 0){
+            
+        }
+        Presentar(filtro)
+    })
 }
 
-const filtroOtro = productos.filter(elem => elem.tipo === "Otro")
-const botonOtros = document.querySelector("#filtroOtro")
-// AGREGANDO EVENTO PARA FILTRAR SOBRE PRODUCTOS TIPO OTRO
-botonOtros.onclick = () => {
-    conteiner.innerHTML = ""
-    Presentar(filtroOtro)
+// CARGANDO DATOS DE ARCHIVO JSON
+const cargarStock = async () => {
+    let obtencion = await fetch('js/stock.json')
+    let parseo = await obtencion.json()
+    return parseo
 }
+
+cargarStock()
+    .then(array => {
+        array.forEach(producto => {
+            const {id,nombre,tipo,precio,imagen,peso,cantidad} = producto
+            productos.push(new Producto(id,nombre,tipo,precio,imagen,peso,cantidad))
+        })
+        Presentar(productos)
+        filters(productos)
+        buscar(productos)
+    })
+    
+
 
 
 
