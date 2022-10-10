@@ -1,0 +1,13 @@
+[
+    {"id":1,"nombre":"Excellent","tipo":"Gato","precio":7000,"imagen":"./images/excellent.png","peso":"15kg","cantidad":1},{"id":2,"nombre":"Pedigree","tipo":"Perro","precio":10000,"imagen":"./images/pedigree.png","peso":"10kg","cantidad":1},
+    {"id":3,"nombre":"Dog Chow","tipo":"Perro","precio":5000,"imagen":"./images/dog-chow.png","peso":"15kg","cantidad":1},{"id":4,"nombre":"Whiskas","tipo":"Gato","precio":8000,"imagen":"./images/whiskas.png","peso":"7kg","cantidad":1},
+    {"id":5,"nombre":"Heno","tipo":"Otro","precio":3000,"imagen":"./images/heno.png","peso":"500gr","cantidad":1},{"id":6,"nombre":"Shulet","tipo":"Otro","precio":500,"imagen":"./images/peces.png","peso":"150gr","cantidad":1},
+    {"id":7,"nombre":"ProPlan","tipo":"Gato","precio":19000,"imagen":"./images/Proplan-gato.png","peso":"15kg","cantidad":1},{"id":8,"nombre":"Royal Canin","tipo":"Gato","precio":7800,"imagen":"./images/royal-canin-gato.png","peso":"7.5kg","cantidad":1},
+    {"id":9,"nombre":"VitalCan","tipo":"Perro","precio":8870,"imagen":"./images/vital-can-perro.png","peso":"20kg","cantidad":1},{"id":10,"nombre":"Eukanuba","tipo":"Perro","precio":10425,"imagen":"./images/eukanuba-perro.png","peso":"15kg","cantidad":1},
+    {"id":11,"nombre":"Proplan Puppy","tipo":"Perro","precio":3900,"imagen":"./images/proplan-perro.png","peso":"3kg","cantidad":1},{"id":12,"nombre":"Nutrafin Max","tipo":"Otro","precio":680,"imagen":"./images/nutrafin.png","peso":"50gr","cantidad":1},
+    {"id":13,"nombre":"Nutrafin Tortugas","tipo":"Otro","precio":460,"imagen":"./images/nutrafin-tortugas.png","peso":"20gr","cantidad":1},{"id":14,"nombre":"Infinity","tipo":"Gato","precio":4185,"imagen":"./images/infinity-gato.png","peso":"10kg","cantidad":1},
+    {"id":15,"nombre":"ProPlan Active Mind","tipo":"Perro","precio":3900,"imagen":"./images/proplanActive-perro.png","peso":"3kg","cantidad":1},{"id":16,"nombre":"Maintenance Criadores","tipo":"Perro","precio":4140,"imagen":"./images/mainCriadores.png","peso":"22kg","cantidad":1},
+    {"id":17,"nombre":"VitalCat (control de peso)","tipo":"Gato","precio":7535,"imagen":"./images/vitalCat.png","peso":"7.5kg","cantidad":1},{"id":18,"nombre":"Old Prince Novel","tipo":"Perro","precio":8900,"imagen":"./images/oldPrince.png","peso":"15kg","cantidad":1},
+    {"id":19,"nombre":"Vegetales para Canario Zootec","tipo":"Otro","precio":780,"imagen":"./images/zootec-canario.png","peso":"40gr","cantidad":1},{"id":20,"nombre":"Veggie para Aves Zootec","tipo":"Otro","precio":525,"imagen":"./images/veggieZootec.png","peso":"100gr","cantidad":1}
+]
+
