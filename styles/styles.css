@@ -14,6 +14,14 @@ a {
 li {
   list-style: none; }
 
+input {
+  outline: none; }
+
+button {
+  border: none;
+  background-color: black;
+  color: white; }
+
 header {
   background-color: #95b8f6; }
   header .nav {
@@ -106,51 +114,82 @@ main .destacados {
             main .destacados .conteiner #conteiner__productos .product label button:hover {
               background-color: #607495; }
 
-main .card__carrito {
-  width: 28em;
+main #detallesCompra {
+  max-width: 1100px;
   margin: 3em auto;
-  border: 2px solid black;
-  border-radius: 4px;
-  padding: 3em 0; }
-  main .card__carrito #carrito-contenedor .producto-carrito {
-    padding: 1em 2em;
-    width: 100%; }
-    main .card__carrito #carrito-contenedor .producto-carrito p {
-      font-size: 1.3em;
-      margin-bottom: 0.5em; }
-    main .card__carrito #carrito-contenedor .producto-carrito .botones {
-      margin-top: 0.5em;
+  display: flex;
+  justify-content: space-around; }
+  main #detallesCompra .card__carrito {
+    width: 28em;
+    border: 2px solid black;
+    border-radius: 4px;
+    padding: 3em 0; }
+    main #detallesCompra .card__carrito #carrito-contenedor .producto-carrito {
+      padding: 1em 2em;
+      width: 100%; }
+      main #detallesCompra .card__carrito #carrito-contenedor .producto-carrito p {
+        font-size: 1.3em;
+        margin-bottom: 0.5em; }
+      main #detallesCompra .card__carrito #carrito-contenedor .producto-carrito .botones {
+        margin-top: 0.5em;
+        display: flex;
+        justify-content: space-evenly; }
+        main #detallesCompra .card__carrito #carrito-contenedor .producto-carrito .botones button {
+          border: none;
+          color: white;
+          background-color: #95b8f6;
+          padding: 0.3em 0.5em;
+          transition: color 0.3s; }
+          main #detallesCompra .card__carrito #carrito-contenedor .producto-carrito .botones button:hover {
+            cursor: pointer;
+            color: black; }
+    main #detallesCompra .card__carrito .carrito-datos {
       display: flex;
-      justify-content: space-evenly; }
-      main .card__carrito #carrito-contenedor .producto-carrito .botones button {
+      flex-direction: column;
+      align-items: center;
+      margin-top: 2em; }
+      main #detallesCompra .card__carrito .carrito-datos p {
+        font-size: 1.2em; }
+      main #detallesCompra .card__carrito .carrito-datos span {
+        font-weight: bold;
+        font-size: 1.5em;
+        margin: 0.5em 0; }
+      main #detallesCompra .card__carrito .carrito-datos button {
         border: none;
-        color: white;
-        background-color: #95b8f6;
         padding: 0.3em 0.5em;
-        transition: color 0.3s; }
-        main .card__carrito #carrito-contenedor .producto-carrito .botones button:hover {
-          cursor: pointer;
-          color: black; }
-  main .card__carrito .carrito-datos {
+        background-color: #95b8f6;
+        color: white;
+        font-weight: bold;
+        text-transform: uppercase;
+        cursor: pointer; }
+    main #detallesCompra .card__carrito #conteinerComprar {
+      margin-top: 1em;
+      display: flex;
+      justify-content: center; }
+      main #detallesCompra .card__carrito #conteinerComprar .botonComprar {
+        padding: 0.5em;
+        width: 60%;
+        cursor: pointer; }
+  main #detallesCompra #formulario {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin-top: 2em; }
-    main .card__carrito .carrito-datos p {
-      font-size: 1.2em; }
-    main .card__carrito .carrito-datos span {
-      font-weight: bold;
-      font-size: 1.5em;
-      margin: 0.5em 0; }
-    main .card__carrito .carrito-datos button {
-      border: none;
-      padding: 0.3em 0.5em;
-      background-color: #95b8f6;
-      color: white;
-      font-weight: bold;
-      text-transform: uppercase; }
+    padding: 2em;
+    padding-bottom: 0;
+    justify-content: space-between; }
+    main #detallesCompra #formulario h2 {
+      font-size: 1.7em; }
+    main #detallesCompra #formulario label input {
+      display: block;
+      width: 100%;
+      padding: 0.5em; }
+    main #detallesCompra #formulario button {
+      padding: 1em 0;
+      width: 20%;
+      margin: 0 auto;
+      cursor: pointer; }
 
 footer {
+  margin-top: 2em;
   background-color: black;
   display: flex;
   justify-content: space-around;
