@@ -16,8 +16,7 @@
                 <input type="text" id="buscador" placeholder="Buscar alimento para tu mascota...">
             </label>
             <ul class="nav__list">
-                <li class="nav__list__item">Mi cuenta</li>
-                <li class="nav__list__item">Carrito</li>
+                <a href="#detallesCompra"><li class="nav__list__item">Carrito</li></a>
             </ul>
         </nav>
     </header>
@@ -38,17 +37,17 @@
                 <div id="conteiner__productos">
                 </div>
             </div>
+        <section id="detallesCompra">
+            <div class="card__carrito">
+                <section id="carrito-contenedor"></section>
+                <div class="carrito-datos">
+                <p>El total del carrito es </p><span id="totalCarrito">$0</span>
+                <button id="vaciarCarrito">Vaciar carrito</button>
+                </div>
+                <label id="conteinerComprar" for="comprar"></label>
+            </div>  
         </section>
-        <div class="card__carrito">
-            <section id="carrito-contenedor"></section>
-            <div class="carrito-datos">
-            <p>El precio total es: </p><span id="totalCarrito">$0</span>
-            <button id="vaciarCarrito">Vaciar carrito</button>
-            </div>
-            <label id="conteinerComprar" for="comprar">
-
-            </label>
-        </div>
+        </section>
     </main>
     <footer>
         <ul class="contactos">

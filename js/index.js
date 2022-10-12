@@ -25,31 +25,14 @@ const botonGato = document.querySelector("#filtroGato")
 const botonOtros = document.querySelector("#filtroOtro")
 const labelBuy = document.querySelector('#conteinerComprar') 
 const search = document.querySelector('#buscador')
+const detallesCompra = document.querySelector('#detallesCompra')
 
-
-const botonComprar = () => {
-    if(carrito.length > 0){
-        labelBuy.innerHTML= ""
-        let buttonBuy = document.createElement('button')
-        buttonBuy.className = 'botonComprar'
-        buttonBuy.innerText = 'FINALIZAR COMPRA'
-        labelBuy.appendChild(buttonBuy)
-        buttonBuy.onclick = () => {
-            Swal.fire({
-                icon: 'question',
-                iconColor:'#95b8f6',
-                title: `Desea finalizar la compra?`,
-                padding: '1em',
-            })
-        }
-    }
-    else{
-        labelBuy.innerHTML = ""
-    }   
-}
 
 // EVENTO PARA LIMPIAR CARRITO
 buttonLimpiar.onclick = () => {
+    if(document.querySelector('#formulario') != null){
+    let eliminarForm = document.querySelector('#formulario')
+    eliminarForm.remove()}
     if(carrito.length > 0){
         Swal.fire({
             icon: 'info',
@@ -65,7 +48,6 @@ buttonLimpiar.onclick = () => {
     carrito.forEach(elem => {
         elem.cantidad = 1
     })
-    
     carrito.length = 0
     mostrarCarrito()
 }
@@ -125,6 +107,7 @@ const agregarProducto = productoId => {
     mostrarCarrito()  
 }
 
+// FUNCION PARA ELIMINAR PRODUCTO DEL CARRITO
 const eliminarProducto = productoId => {
     let product = carrito.find(elem => elem.id === productoId)
     let index = carrito.indexOf(product)
@@ -143,6 +126,7 @@ const eliminarProducto = productoId => {
     })
 }
 
+// FUNCION PARA RESTAR CANTIDAD
 const restarCantidad = productoId => {
     let item = carrito.find(elem => elem.id === productoId)
     item.cantidad --
@@ -163,6 +147,7 @@ const restarCantidad = productoId => {
     mostrarCarrito()
 }
 
+// FUNCION PARA SUMAR CANTIDAD
 const sumarCantidad = productoId => {
     let item = carrito.find(elem => elem.id === productoId)
     item.cantidad ++
@@ -183,6 +168,10 @@ const sumarCantidad = productoId => {
 const mostrarCarrito = () => {
     containerCarrito.innerHTML = ""
     botonComprar()
+    if(document.querySelector('#formulario') != null){
+        let eliminarForm = document.querySelector('#formulario')
+        eliminarForm.remove()
+    }
     carrito.forEach(producto => {
         const div = document.createElement("div")
         div.className = "producto-carrito"
@@ -211,6 +200,77 @@ const mostrarCarrito = () => {
         let total =  carrito.reduce((acc,elem) => acc + elem.precio * elem.cantidad, 0)
         total > 15000 ? totalCarrito.innerText = `$${total} e incluye envio gratis!` : totalCarrito.innerText = `$${total}`  
 
+}
+
+// FUNCION PARA CREAR FORMULARIO AL FINALIZAR COMPRA
+const datos = () => {
+    if(document.querySelector('#formulario') != null){
+        let formExistente = document.querySelector('#formulario')
+        formExistente.remove() 
+    }
+    let form = document.createElement('form')
+    form.setAttribute('id','formulario')
+    form.innerHTML = `<h2>Ingrese sus datos para coordinar el pago</h2>
+                      <label for="form__nombre"><input id="form__nombre" type= 'text' placeholder= 'Nombre' required></label>
+                      <label for="form__apellido"><input id="form__apellido" type= 'text' placeholder= 'Apellido' required></label>
+                      <label for="form__tel"><input id="form__tel" type= 'text' placeholder= 'Numero sin guiones ni espacios' required></label>
+                      <span id="alerta"></span>
+                      <button type="submit" id="buttonSend">ENVIAR</button>`
+    detallesCompra.appendChild(form)
+    let buttonSend = document.querySelector('#buttonSend')
+    buttonSend.onclick = (e) => {
+        e.preventDefault()
+        let nombre = document.getElementById('form__nombre').value
+        let apellido = document.getElementById('form__apellido').value
+        let tel = document.getElementById('form__tel').value
+        let alerta = document.getElementById('alerta') 
+        if(isNaN(tel) || !isNaN(nombre) || !isNaN(apellido) || nombre === "" || apellido === "" || tel === ""){
+            alerta.innerText = 'Campos erroneos o vacios'
+        }
+        else if(tel.length>11){
+            alerta.innerText = ''
+            alerta.innerText = 'Telefono muy largo'
+        }
+        else{
+            Swal.fire({
+                icon: 'success',
+                text: `${nombre} nos pondemos en contacto contigo a la brevedad!`
+            })
+            form.remove()
+            carrito.length = 0
+            mostrarCarrito()
+        }
+    }
+}
+
+// CREACION BOTON COMPRAR
+const botonComprar = () => {
+    if(carrito.length > 0){
+        labelBuy.innerHTML= ""
+        let buttonBuy = document.createElement('button')
+        buttonBuy.className = 'botonComprar'
+        buttonBuy.innerText = 'FINALIZAR COMPRA'
+        labelBuy.appendChild(buttonBuy)
+        buttonBuy.onclick = () => {
+            Swal.fire({
+                icon: 'question',
+                iconColor:'#95b8f6',
+                text: `Desea finalizar la compra?`,
+                padding: '1em',
+                confirmButtonText: 'Finalizar',
+                showCancelButton: true,
+                cancelButtonText:'Cancelar',
+                allowOutsideClick: false,
+            }).then(option => {
+                if(option.isConfirmed){
+                    datos()
+                }
+            })
+        }
+    }
+    else{
+        labelBuy.innerHTML = ""
+    }   
 }
 
 // LOCALSTORAGE
@@ -249,11 +309,8 @@ const filters = array => {
 const buscar = (array) => {
     search.addEventListener('input', () => {
         let valor = search.value
-        const filtro = array.filter(producto => producto.nombre.includes(valor))
+        const filtro = array.filter(producto => producto.nombre.toLowerCase().includes(valor))
         conteiner.innerHTML = ""
-        if(filtro.length === 0){
-            
-        }
         Presentar(filtro)
     })
 }
