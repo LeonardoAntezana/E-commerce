@@ -227,9 +227,9 @@ const datos = () => {
         if(isNaN(tel) || !isNaN(nombre) || !isNaN(apellido) || nombre === "" || apellido === "" || tel === ""){
             alerta.innerText = 'Campos erroneos o vacios'
         }
-        else if(tel.length>11){
+        else if(tel.length != 10){
             alerta.innerText = ''
-            alerta.innerText = 'Telefono muy largo'
+            alerta.innerText = 'Telefono no valido'
         }
         else{
             Swal.fire({

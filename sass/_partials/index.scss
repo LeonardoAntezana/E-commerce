@@ -45,6 +45,7 @@ main{
             align-items: center;
             .title{
                 font-size: 3em;
+                text-transform: uppercase;
             }
             .pets{
                 margin-top: 2em;
@@ -88,12 +89,21 @@ main{
                         }
                     }
                     h2{
-                        font-size: 1.2em;
+                        font-size: 1.5em;
                         margin: 0.5em 0;
                     }
                     .datos{
                         display: flex;
                         justify-content: space-between;
+                        span{
+                            font-weight: bold;
+                        }
+                        .precio{
+                            font-size: 1.2em;
+                        }
+                        :nth-child(2){
+                            font-style: italic;
+                        }
                     }
                     label{
                         display: flex;
@@ -128,9 +138,14 @@ main{
                 .producto-carrito{
                     padding: 1em 2em;
                     width: 100%;
+                    transition: background-color 0.5s;
                     p{
-                        font-size: 1.3em;
+                        font-size: 1.4em;
                         margin-bottom: 0.5em;
+                    }
+                    span, .quantity{
+                        font-size: 1.2em;
+                        font-weight: bold;
                     }
                     .botones{
                         margin-top: 0.5em;
@@ -148,7 +163,13 @@ main{
                             }
                         }
                     }
+                    &:hover{
+                        background-color: rgb(210, 204, 204);
+                    }
                 }
+            }
+            .total{
+                text-transform: uppercase;
             }
             .carrito-datos{
                 display: flex;
@@ -185,6 +206,7 @@ main{
             }
         }
         #formulario{
+            max-height: 19rem;
             display: flex;
             flex-direction: column;
             padding: 2em;
@@ -192,6 +214,7 @@ main{
             justify-content: space-between;
             h2{
                 font-size: 1.7em;
+                text-transform: uppercase;
             }
             label{
                 input{
@@ -199,6 +222,11 @@ main{
                     width: 100%;
                     padding: 0.5em;
                 }
+            }
+            #alerta{
+                font-size: 1.3em;
+                color: red;
+                font-style: italic;
             }
             button{
                 padding: 1em 0;
